@@ -1,0 +1,39 @@
+version: "3.7"
+
+services:
+
+  api:
+    build:
+      context: .
+      dockerfile: src/Advertisement.PublicApi/Dockerfile
+    ports:
+      - 5000:80
+    environment:
+      - ConnectionStrings__PostgresDb=Server=postgres;Database=Advertisement;Username=postgres;Password=password;Port=5432
+    depends_on:
+      - postgres
+
+  postgres:
+    image: "postgres" # use latest official postgres version
+    restart: always
+    environment: # configure postgres 
+        - POSTGRES_USER=postgres
+        - POSTGRES_DB=Advertisement
+        - POSTGRES_PASSWORD=password
+    ports: 
+        - "5432:5432"
+    volumes: # persist data even if container shuts down
+        - postgres_data:/var/lib/postgresql/data/
+
+  pgadmin-compose:
+    image: dpage/pgadmin4
+    environment:
+        PGADMIN_DEFAULT_EMAIL: "postgres@domain.com"
+        PGADMIN_DEFAULT_PASSWORD: "password"
+    ports:
+        - "16543:80"
+    depends_on:
+        - postgres
+
+volumes: # named volumes can be managed easier using docker-compose
+  postgres_data:
