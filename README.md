@@ -23,12 +23,14 @@
 
 `docker run --name my-app --rm my-python-app`
 
-## Sample2 - Добавляем в предыдущий пример переменную окружения 
+## Sample1.env - Добавляем в предыдущий пример переменную окружения 
 
 `docker build ./ -t my-python-app`
 
 `docker run --name my-app --rm my-python-app
 `docker run --name my-app -e NAME=World --rm my-python-app`
+
+`docker run --name my-app --env-file .env --rm my-python-app`
 
 
 ## Sample2 - Создаем Dockerfile для веб-приложения, прокидываем порт
