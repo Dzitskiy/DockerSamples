@@ -28,6 +28,7 @@
 `docker build ./ -t my-python-app`
 
 `docker run --name my-app --rm my-python-app`
+
 `docker run --name my-app -e NAME=World --rm my-python-app`
 
 `docker run --name my-app --env-file .env --rm my-python-app`
